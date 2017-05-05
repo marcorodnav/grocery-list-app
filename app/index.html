@@ -1,24 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title></title>
     <meta charset="utf-8">
-
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
-
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
     <script src="https://bs-static.cdn.telerik.com/1.6.2/everlive.all.min.js"></script>
     <script src="scripts/app.js"></script>
 </head>
+
 <body>
     <div data-role="view" id="list" data-title="Grocery List">
-        <div data-role="navbar">
-            <span data-role="view-title"></span>
+        <div data-role="navbar"> 
+            <span data-role="view-title"></span> 
+            <a data-role="button" data-align="right" data-rel="modalview" href="#add">
+                Add
+            </a>            
         </div>
         <ul id="grocery-list"></ul>
     </div>
+    <div data-role="modalview" id="add" style="width: 90%" data-model="addView">
+        <div data-role="header">
+            <div data-role="navbar"> 
+                <span>Add Grocery</span> 
+            </div>
+        </div>
+        <ul data-role="listview" data-style="inset">
+            <li> 
+                <label>
+                    Grocery:<input type="text" data-bind="value: grocery">
+                </label> 
+            </li>
+        </ul> 
+        <button data-bind="click: add" class="add-button" data-role="button">
+            Add
+        </button> 
+        <button data-bind="click: close" class="close-button" data-role="button">
+            Close
+        </button> 
+    </div>
 </body>
+
 </html>
