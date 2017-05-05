@@ -22,6 +22,41 @@
         navigator.splashscreen.hide();
     }
 
+    window.loginView = kendo.observable({
+        submit: function() {
+            if (!this.username) {
+                navigator.notification.alert("Username is required.");
+                return;
+            }
+            if (!this.password) {
+                navigator.notification.alert("Password is required.");
+                return;
+            }
+            el.Users.login(this.username, this.password, 
+                function(data) {
+                    window.location.href="#list";
+                    groceryDataSource.read();
+                }, function() {
+                    navigation.notification.alert("Unfortunately we could not find your account.");
+                }
+            );
+        }
+    });
+    
+    window.listView = kendo.observable({
+        logout: function(event) {
+            // Prevent going to the login page until the login call processes.
+            event.preventDefault();
+            el.Users.logout(function() {
+                this.loginView.set("username", "" );
+                this.loginView.set("password", "" );
+                window.location.href = "#login";
+            }, function() {
+                navigator.notification.alert("Unfortunately an error ocurred logging out of your account.");
+            });
+        }
+    });
+
     window.addView = kendo.observable({
         add: function() {
             if (!this.grocery) {
